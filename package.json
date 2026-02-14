@@ -23,9 +23,11 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@prisma/client": "^7.4.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "tedious": "^19.2.1",
     "zxcvbn": "^4.4.2"
   }
 }
