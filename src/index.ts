@@ -1,35 +1,31 @@
 import express from 'express';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';   // <-- add this
-import zxcvbn from 'zxcvbn';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+import authRoutes from './routes/authRoutes';
+import farmRoutes from './routes/farmRoutes';
+import aiRoutes from './routes/aiRoutes';
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());                    // <-- add this line
+app.use(cookieParser());
 
-// Example route that reads cookies
-app.get('/profile', (req, res) => {
-  // Access cookies via req.cookies
-  console.log(req.cookies);
-  res.json({ message: 'Profile endpoint', cookies: req.cookies });
-});
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/farms', farmRoutes);
+app.use('/api/ai', aiRoutes);
 
-app.post('/check-password', (req, res) => {
-  const { password } = req.body;
-  if (!password) {
-    return res.status(400).json({ error: 'Password is required' });
-  }
-  const result = zxcvbn(password);
-  res.json(result);
-});
-
+// Health check
 app.get('/', (req, res) => {
-  res.send('Backend with TypeScript, Express, CORS, cookie-parser and zxcvbn');
+  res.send('AgriAI Africa MVP Backend');
 });
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running on port ${port}`);
 });
