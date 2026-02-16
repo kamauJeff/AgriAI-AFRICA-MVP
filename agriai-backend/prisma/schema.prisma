@@ -1,10 +1,9 @@
 generator client {
-  provider = "prisma-client-js"   // Use "prisma-client-js" (the standard)
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlserver"
-  // url      = env("DATABASE_URL")  // Add the connection string
 }
 
 model User {
@@ -12,9 +11,9 @@ model User {
   email     String   @unique
   password  String
   name      String
-  farms     Farm[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  farms     Farm[]
 }
 
 model Farm {
@@ -22,20 +21,20 @@ model Farm {
   name      String
   location  String
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  fields    Field[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fields    Field[]
 }
 
 model Field {
   id        String   @id @default(uuid())
   name      String
-  area      Float    // in hectares
-  soilType  String   // Changed from SoilType enum to String
-  crop      String?  // current crop
+  area      Float
+  soilType  String
+  crop      String?
   farmId    String
-  farm      Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  farm      Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
 }
