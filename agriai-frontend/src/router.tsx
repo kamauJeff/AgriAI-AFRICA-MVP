@@ -6,6 +6,7 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Predict from './pages/ai/Predict';
 import Layout from './components/layout/Layout';
+import MarketPrices from './pages/market/MarketPrices';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -39,6 +40,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Predict />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'market',
+        element: (
+          <ProtectedRoute>
+            <MarketPrices />
           </ProtectedRoute>
         ),
       },

@@ -1,0 +1,1 @@
+"seed:market"; "ts-node prisma/seedMarket.ts"

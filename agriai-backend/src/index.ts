@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
 import farmRoutes from './routes/farmRoutes';
 import aiRoutes from './routes/aiRoutes';
+import weatherRoutes from './routes/weatherRoutes';
+import marketRoutes from './routes/marketRoutes'; // added missing import
 
 dotenv.config();
 
@@ -20,6 +22,8 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/farms', farmRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/weather', weatherRoutes);
+app.use('/api/market', marketRoutes);
 
 // Health check
 app.get('/', (req, res) => {

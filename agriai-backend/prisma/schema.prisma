@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlserver"
-  url      = env("DATABASE_URL")
+  adapter  = "sqlserver"
 }
 
 model User {
@@ -49,5 +49,14 @@ model WeatherAlert {
   condition String   // e.g., 'rain', 'temperature'
   threshold Float    // e.g., 10 mm
   active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model CropPrice {
+  id        String   @id @default(uuid())
+  crop      String
+  region    String   // e.g., "Nairobi"
+  price     Float    // per kg
+  date      DateTime @default(now())
   createdAt DateTime @default(now())
 }

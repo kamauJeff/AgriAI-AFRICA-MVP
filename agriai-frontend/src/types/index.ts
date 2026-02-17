@@ -10,6 +10,8 @@ export interface Farm {
   location: string;
   userId: string;
   fields: Field[];
+  lat?: number;
+  lon?: number;
   createdAt: string;
   updatedAt: string;
 }
