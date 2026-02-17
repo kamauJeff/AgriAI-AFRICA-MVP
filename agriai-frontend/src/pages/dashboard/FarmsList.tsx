@@ -7,7 +7,7 @@ import type { Farm } from '@/types';
 import FarmForm from './FarmForm';
 import FieldList from './FieldList';
 import { deleteFarm } from '@/api/endpoints/farms';
-import { setFarmLocation } from '@/api/endpoints/weather';
+// import { setFarmLocation } from '@/api/endpoints/weather';
 import { toast } from '@/components/ui/use-toast';
 import ForecastCard from '@/components/weather/ForecastCard';
 import LocationDialog from '@/components/weather/LocationDialog';
