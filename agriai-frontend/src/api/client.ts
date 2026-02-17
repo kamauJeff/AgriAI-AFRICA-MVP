@@ -8,12 +8,29 @@ const apiClient = axios.create({
 });
 
 // Add token to requests if available
+// apiClient.interceptors.request.use((config) => {
+//   const token = localStorage.getItem('token');
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
+
+// export default apiClient;
+
+
 apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  const authStorage = localStorage.getItem('auth-storage');
+  if (authStorage) {
+    try {
+      const { state } = JSON.parse(authStorage);
+      const token = state.token;
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (e) {
+      console.error('Failed to parse auth storage', e);
+    }
   }
   return config;
 });
-
-export default apiClient;
