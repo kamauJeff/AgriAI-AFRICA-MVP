@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlserver"
-  adapter  = "sqlserver"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -12,21 +12,21 @@ model User {
   email     String   @unique
   password  String
   name      String
+  farms     Farm[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  farms     Farm[]
 }
 
 model Farm {
   id            String          @id @default(uuid())
   name          String
   location      String
-  lat           Float?          // latitude
-  lon           Float?          // longitude
+  lat           Float?
+  lon           Float?
   userId        String
   user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   fields        Field[]
-  weatherAlerts WeatherAlert[]   // add this line
+  weatherAlerts WeatherAlert[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 }
@@ -38,16 +38,17 @@ model Field {
   soilType  String
   crop      String?
   farmId    String
+  farm      Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  farm      Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
 }
+
 model WeatherAlert {
   id        String   @id @default(uuid())
   farmId    String
   farm      Farm     @relation(fields: [farmId], references: [id], onDelete: Cascade)
-  condition String   // e.g., 'rain', 'temperature'
-  threshold Float    // e.g., 10 mm
+  condition String
+  threshold Float
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
 }
@@ -55,8 +56,8 @@ model WeatherAlert {
 model CropPrice {
   id        String   @id @default(uuid())
   crop      String
-  region    String   // e.g., "Nairobi"
-  price     Float    // per kg
+  region    String
+  price     Float
   date      DateTime @default(now())
   createdAt DateTime @default(now())
 }

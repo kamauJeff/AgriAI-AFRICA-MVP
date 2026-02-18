@@ -20,6 +20,7 @@ export default function Header() {
         <nav className="flex items-center gap-4">
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/predict">AI Predict</Link>
+          <Link to="/market">Market</Link>   {/* Added Market link */}
           {isAuthenticated ? (
             <>
               <span>Hi, {user?.name}</span>
